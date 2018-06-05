@@ -84,14 +84,11 @@ ny2 = nx2;
 nz = int(0.3*h1/delta) + 1;
 bmdict = openfoam.blockMeshDict()
 
-#bmdict.vertices.add("( {} {} {} )".format( , , ))
-
 for z in [ 0, h1 ]:
     for y in [ w, r, -r, -w ]:
-        bmdict.vertices.add("( {} {} {} )".format( -l1, y, z))
-        bmdict.vertices.add("( {} {} {} )".format( -r, y, z))
-        bmdict.vertices.add("( {} {} {} )".format( r, y, z))
-        bmdict.vertices.add("( {} {} {} )".format( xe, y, z))
+        for x in [ -l1, -r, r, xe ]:
+            bmdict.vertices.add("( {} {} {} )".format( x, y, z))
+
 
 bmdict.write(0)
 filename = "system/blockMeshDict"
