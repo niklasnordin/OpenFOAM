@@ -83,12 +83,15 @@ ny1 = calcN(w-r, g2, delta);
 ny2 = nx2;
 nz = int(0.3*h1/delta) + 1;
 bmdict = openfoam.blockMeshDict()
-#    print "    ( -$L1  $w 0 )\n";
-#    print "    ( -$r   $w 0 )\n";
-##    print "    (  $r   $w 0 )\n";
-#   print "    (  $xe  $w 0 )\n";
 
-bmdict.vertices.add("( {} {} {} )".format(-l1, w, 0))
+#bmdict.vertices.add("( {} {} {} )".format( , , ))
+
+for z in [ 0, h1 ]:
+    for y in [ w, r, -r, -w ]:
+        bmdict.vertices.add("( {} {} {} )".format( -l1, y, z))
+        bmdict.vertices.add("( {} {} {} )".format( -r, y, z))
+        bmdict.vertices.add("( {} {} {} )".format( r, y, z))
+        bmdict.vertices.add("( {} {} {} )".format( xe, y, z))
 
 bmdict.write(0)
 filename = "system/blockMeshDict"
