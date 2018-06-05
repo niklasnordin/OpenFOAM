@@ -88,8 +88,8 @@ for z in [ 0, h1 ]:
     for y in [ w, r, -r, -w ]:
         for x in [ -l1, -r, r, xe ]:
             bmdict.vertices.add("( {} {} {} )".format( x, y, z))
-
-
+#    print "    hex (4 5 1 0 20 21 17 16) ($nx1 $ny1 $nz) simpleGrading ($g1i $g2 1)\n";
+bmdict.blocks.add("hex ( 4 5 1 0 20 21 17 16 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx1, ny1, nz, 1.0/g1, g2,1))
 bmdict.write(0)
 filename = "system/blockMeshDict"
 with open( filename, "w" ) as file:
