@@ -62,3 +62,12 @@ argv = sys.argv
 readFlags(argv)
 
 bmdict = openfoam.blockMeshDict()
+bmdict.vertices.add("1")
+bmdict.vertices.add("2")
+bmdict.vertices.add("3")
+
+bmdict.write(0)
+filename = "system/blockMeshDict"
+with open( filename, "w" ) as file:
+    print("writing {}".format(filename))
+    bmdict.writeToFile(file, 0)
