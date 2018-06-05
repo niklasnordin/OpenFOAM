@@ -1,4 +1,5 @@
 import sys
+import openfoam
 
 # Generate the cylinder blockMeshDict file for the von Karman LES case
 #              16          17         18          19
@@ -24,9 +25,6 @@ l1 = 0.4
 l2 = 1.36
 w = 0.56
 delta = 0.001
-
-def header():
-    print("header")
 
 def usage(scriptname):
     print("usage:")
@@ -63,4 +61,4 @@ def readFlags(argv):
 argv = sys.argv
 readFlags(argv)
 
-header()
+bmdict = openfoam.blockMeshDict()
