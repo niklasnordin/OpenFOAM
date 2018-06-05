@@ -88,8 +88,18 @@ for z in [ 0, h1 ]:
     for y in [ w, r, -r, -w ]:
         for x in [ -l1, -r, r, xe ]:
             bmdict.vertices.add("( {} {} {} )".format( x, y, z))
-#    print "    hex (4 5 1 0 20 21 17 16) ($nx1 $ny1 $nz) simpleGrading ($g1i $g2 1)\n";
-bmdict.blocks.add("hex ( 4 5 1 0 20 21 17 16 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx1, ny1, nz, 1.0/g1, g2,1))
+
+#    print "    hex (14 15 11 10 30 31 27 26) ($nx3 $ny1 $nz) simpleGrading ($g3 $g2i 1)\n";
+
+bmdict.blocks.add("hex ( 4 5 1 0 20 21 17 16 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx1, ny1, nz, 1.0/g1, g2, 1.0))
+bmdict.blocks.add("hex ( 5 6 2 1 21 22 18 17 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx2, ny1, nz, 1.0, g2, 1.0))
+bmdict.blocks.add("hex ( 6 7 3 2 22 23 19 18 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx3, ny1, nz, g3, g2, 1.0))
+bmdict.blocks.add("hex ( 8 9 5 4 24 25 21 20 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx1, ny2, nz, 1.0/g1, 1.0, 1.0))
+bmdict.blocks.add("hex ( 10 11 7 6 26 27 23 22 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx3, ny2, nz, g3, 1.0, 1.0))
+bmdict.blocks.add("hex ( 12 13 9 8 28 29 25 24 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx1, ny1, nz, 1.0/g1, 1.0/g2, 1.0))
+bmdict.blocks.add("hex ( 13 14 10 9 29 30 26 25 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx2, ny1, nz, 1.0, 1.0/g2, 1.0))
+bmdict.blocks.add("hex ( 14 15 11 10 30 31 27 26 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx3, ny1, nz, g3, 1.0/g2, 1.0))
+
 bmdict.write(0)
 filename = "system/blockMeshDict"
 with open( filename, "w" ) as file:
