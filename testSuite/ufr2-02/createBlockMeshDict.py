@@ -1,4 +1,5 @@
 import sys
+import math
 import openfoam
 
 # Generate the cylinder blockMeshDict file for the von Karman LES case
@@ -23,7 +24,7 @@ d = 0.04
 h1 = 0.392
 l1 = 0.4
 l2 = 1.36
-w = 0.56
+width = 0.56
 delta = 0.001
 
 def usage(scriptname):
@@ -52,19 +53,42 @@ def readFlags(argv):
         elif a == "-l2":
             l2 = float(argv[i+1])
         elif a == "-w":
-            w = float(argv[i+1])
+            width = float(argv[i+1])
         elif a == "-delta":
             delta = float(argv[i+1])
         elif "-" in a:
             print("{} unknown flag. Ignoring...".format(a))  
 
+
+def calcN(L, R, d):
+    n = 1 + math.log(R)/math.log((L-d)/(L-R*d));
+    return int(n);
+
 argv = sys.argv
 readFlags(argv)
 
+w = 0.5*width;
+r = 0.5*d;
+r0 = 0.5*d;
+xe = l2-l1;
+
+# aspect ratio for largest/smallest cells for the different blocks
+g1 = 20.0;
+g2 = 20.0;
+g3 = 20.0;
+nx1 = calcN(l1-r, g1, delta);
+nx2 = int(d/delta) + 1;
+nx3 = calcN(xe-r, g3, delta);
+ny1 = calcN(w-r, g2, delta);
+ny2 = nx2;
+nz = int(0.3*h1/delta) + 1;
 bmdict = openfoam.blockMeshDict()
-bmdict.vertices.add("1")
-bmdict.vertices.add("2")
-bmdict.vertices.add("3")
+#    print "    ( -$L1  $w 0 )\n";
+#    print "    ( -$r   $w 0 )\n";
+##    print "    (  $r   $w 0 )\n";
+#   print "    (  $xe  $w 0 )\n";
+
+bmdict.vertices.add("( {} {} {} )".format(-l1, w, 0))
 
 bmdict.write(0)
 filename = "system/blockMeshDict"
