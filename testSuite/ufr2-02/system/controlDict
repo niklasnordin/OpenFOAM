@@ -91,7 +91,7 @@ functions
 
         pName       p;
         UName       U;
-        rhoName     rhoInf;
+        rho         rhoInf;
         //log         true;
         rhoInf      994.5;
         CofR        ( 0 0 0 );
