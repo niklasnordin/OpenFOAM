@@ -58,8 +58,8 @@ functions
         type            probes;
         functionObjectLibs ("libsampling.so");
         enabled         true;
-        outputControl   timeStep;
-        outputInterval  1;
+        writeControl   timeStep;
+        writeInterval  1;
         probeLocations
         (
             ( 0.05   0.0   0.002 )
@@ -81,8 +81,8 @@ functions
     {
         type        forceCoeffs;
         functionObjectLibs ( "libforces.so" );
-        outputControl timeStep;
-        outputInterval 1;
+        writeControl timeStep;
+        writeInterval 1;
         patches
         (
             walls
@@ -110,7 +110,7 @@ functions
         type            fieldAverage;
         functionObjectLibs ("libfieldFunctionObjects.so");
         enabled         true;
-        outputControl   outputTime;
+        writeControl   outputTime;
         fields
         (
             U

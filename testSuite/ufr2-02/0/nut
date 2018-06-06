@@ -2,33 +2,49 @@
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  1.6                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      turbulenceProperties;
+    class       volScalarField;
+    object      nut;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType  LES;
+dimensions      [0 2 -1 0 0 0 0];
 
-LES
+internalField   uniform 0;
+
+boundaryField
 {
-    LESModel        Smagorinsky;
-    turbulence      on;
-    delta           cubeRootVol;
-
-    printCoeffs     on;
-
-    cubeRootVolCoeffs
+    inlet           
     {
-        deltaCoeff      1;
+        type            zeroGradient;
     }
+
+    outlet          
+    {
+        type            zeroGradient;
+    }
+
+    walls
+    {
+        type            zeroGradient;
+    }
+
+    sides
+    {
+        type            zeroGradient;
+    }
+
+    lowerUpper
+    {
+        type            zeroGradient;
+    }
+
 }
 
 // ************************************************************************* //
