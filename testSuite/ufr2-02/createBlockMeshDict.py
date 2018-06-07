@@ -20,6 +20,7 @@ import openfoam
 #                                                   
 #                 nx1       nx2=ny2       nx3
 
+ar = 20
 d = 0.04
 h1 = 0.392
 l1 = 0.4
@@ -30,7 +31,7 @@ twoD = False
 
 def usage(scriptname):
     print("usage:")
-    print("\t {} -d <D> -h1 <H1> -l1 <L1> -l2 <L2> -w <W> -delta <delta> -2d".format(scriptname))
+    print("\t {} -d <D> -h1 <H1> -l1 <L1> -l2 <L2> -w <W> -delta <delta> -ar <ar> -2d".format(scriptname))
     print("\t for every parameter not given the default values are:")
     print("\t override the default value by supplying the new value.")
     print("\t D = diameter of square cylinder. (0.04)")
@@ -39,10 +40,11 @@ def usage(scriptname):
     print("\t L2 = Length of computational domain. (1.36)")
     print("\t W = Width of the domain (0.56)")
     print("\t delta = cell size across the sides of the cylinder. (0.001)")
+    print("\t ar = max/min cell size aspect ratio. (20.0)")
     print("\t -2d sets just one layer in z direction")
 
 def readFlags(argv):
-    global d, h1, l1, l2, width, delta, twoD
+    global d, h1, l1, l2, width, delta, ar, twoD
     for i,a in enumerate(argv):
         if a == "-h":
             usage(argv[0])
@@ -59,6 +61,8 @@ def readFlags(argv):
             width = float(argv[i+1])
         elif a == "-delta":
             delta = float(argv[i+1])
+        elif a == "-ar":
+            ar = float(argv[i+1])
         elif a == "-2d":
             twoD = True
         elif "-" in a:
@@ -75,11 +79,13 @@ readFlags(argv)
 w = 0.5*width;
 r = 0.5*d;
 xe = l2-l1;
+if twoD:
+    h1 = 0.001
 
 # aspect ratio for largest/smallest cells for the different blocks
-g1 = 20.0;
-g2 = 20.0;
-g3 = 20.0;
+g1 = ar;
+g2 = ar;
+g3 = ar;
 nx1 = calcN(l1-r, g1, delta);
 nx2 = int(d/delta) + 1;
 nx3 = calcN(xe-r, g3, delta);
