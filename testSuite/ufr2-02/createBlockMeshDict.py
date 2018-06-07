@@ -61,7 +61,6 @@ def readFlags(argv):
             delta = float(argv[i+1])
         elif a == "-2d":
             twoD = True
-            print("2d")
         elif "-" in a:
             print("{} unknown flag. Ignoring...".format(a))  
 
@@ -107,26 +106,26 @@ bmdict.blocks.add("hex ( 12 13 9 8 28 29 25 24 ) ( {} {} {} ) simpleGrading ( {}
 bmdict.blocks.add("hex ( 13 14 10 9 29 30 26 25 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx2, ny1, nz, 1.0, 1.0/g2, 1.0))
 bmdict.blocks.add("hex ( 14 15 11 10 30 31 27 26 ) ( {} {} {} ) simpleGrading ( {} {} {} )".format(nx3, ny1, nz, g3, 1.0/g2, 1.0))
 
-wall1PatchList = openfoam.list( "wall walls" )
+wall1PatchList = openfoam.list( "wall walls", endWithSemicolon=False )
 wall1PatchList.add("(5 21 22 6)")
 wall1PatchList.add("(6 22 26 10)")
 wall1PatchList.add("(10 26 25 9)")
 wall1PatchList.add("(9 25 21 5)")
 bmdict.patches.add( wall1PatchList )
 
-inletPatchList = openfoam.list( "patch inlet")
+inletPatchList = openfoam.list( "patch inlet", endWithSemicolon=False)
 inletPatchList.add("(4 20 16 0)")
 inletPatchList.add("(8 24 20 4)")
 inletPatchList.add("(12 28 24 8)")
 bmdict.patches.add( inletPatchList )
 
-outletPatchList = openfoam.list( "patch outlet")
+outletPatchList = openfoam.list( "patch outlet", endWithSemicolon=False)
 outletPatchList.add("(3 19 23 7)")
 outletPatchList.add("(7 23 27 11)")
 outletPatchList.add("(11 27 31 15)")
 bmdict.patches.add( outletPatchList )
 
-sideWallsList = openfoam.list( "patch sides")
+sideWallsList = openfoam.list( "patch sides", endWithSemicolon=False)
 sideWallsList.add("(16 17 1 0)")
 sideWallsList.add("(17 18 2 1)")
 sideWallsList.add("(18 19 3 2)")
@@ -138,7 +137,7 @@ bmdict.patches.add( sideWallsList )
 lowerUpperString = "empty lowerUpper"
 if not twoD:
     lowerUpperString = "walls lowerUpper"
-lowerWallsList = openfoam.list( lowerUpperString )
+lowerWallsList = openfoam.list( lowerUpperString, endWithSemicolon=False )
 lowerWallsList.add("(0 1 5 4)")
 lowerWallsList.add("(1 2 6 5)")
 lowerWallsList.add("(2 3 7 6)")

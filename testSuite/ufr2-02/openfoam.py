@@ -5,9 +5,10 @@ class openfoamconstants:
 
 class list:
     
-    def __init__(self, name):
+    def __init__(self, name, endWithSemicolon=True):
         self.name = name
         self.entries = []
+        self.endWithSemicolon = endWithSemicolon
 
     def set(self, entries):
         self.entries = entries
@@ -29,7 +30,10 @@ class list:
             else:
                 s = "    %s\n" % (e0 )
                 file.write( (s).rjust( indent*4+len(s) ) )
-        file.write( (");\n").rjust(indent*4+3) )
+        if self.endWithSemicolon:
+                file.write( (");\n").rjust(indent*4+3) )
+        else:
+                file.write( (")\n").rjust(indent*4+3) )
 
     def write(self, indent):
         s = (self.name).rjust(indent*4+len(self.name))
@@ -44,7 +48,10 @@ class list:
             else:
                 s = "    %s" % (e0 )
                 print( (s).rjust( indent*4+len(s) ) )
-        print( (");\n").rjust(indent*4+2) )
+        if self.endWithSemicolon:
+                print( (");\n").rjust(indent*4+2) )
+        else:
+                print( (")\n").rjust(indent*4+2) )
 
 class dictionary:
     
