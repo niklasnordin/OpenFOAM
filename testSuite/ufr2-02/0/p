@@ -41,9 +41,14 @@ boundaryField
         type            zeroGradient;
     }
 
-    lowerUpper
+    lowerUppero
     {
         type            zeroGradient;
+    }
+
+    lowerUpper
+    {
+        type            empty;
     }
 
 }

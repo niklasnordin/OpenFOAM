@@ -42,7 +42,7 @@ boundaryField
 
     lowerUpper
     {
-        type            zeroGradient;
+        type            empty;
     }
 
 }
